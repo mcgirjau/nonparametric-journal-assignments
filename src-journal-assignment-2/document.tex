@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr, parskip, wrapfig, hyperref, apacite, graphicx, setspace, multicol, bm, amsmath}
+
+\hypersetup{
+    colorlinks = true,
+    linkcolor = black,
+    citecolor = black,
+    urlcolor = black
+}
+
+\bibliographystyle{apacite}
+
+\newcommand*\pct{\scalebox{.85}{\%}}
+
+\pagestyle{fancy}    
+\lhead{STAT 225 Journal Assignment 2}
+\rhead{M. C. Gîrjău}
+
+\title{\Huge STAT 225 Journal Assignment 2 \\
+\Large ``Public Health Interventions and Epidemic Intensity During the 1918 Influenza Pandemic''}
+\author{\Large Maria-Cristiana Gîrjău}
+
+\begin{document}
+\maketitle
+
+\begin{multicols}{2}
+
+\subsection*{Introduction}
+
+A frequent response of communal authorities to influenza pandemics is the institution of nonpharmaceutical interventions (NPIs) e.g. voluntary quarantine, temporary closure of non-essential businesses, or bans on public gatherings. Such interventions are intended to reduce infectious contacts between people and consequently decrease the rate at which a disease spreads. While NPIs are supported in theory by mathematical models, the article \textit{``Public Health Interventions and Epidemic Intensity During the 1918 Influenza Pandemic''} \cite{source} attempts to dig deeper into their practical effectiveness and determine whether the early implementation of multiple such interventions is indeed significantly associated with reduced disease transmission, as measured through statistics like peak weekly death rate or cumulative excess mortality.
+
+\subsection*{Methodology}
+
+To investigate the effectiveness of early implementation NPIs during influenza pandemics, the researchers focused on a subset of 17 well-documented U.S. cities at the time of the Spanish flu (September-December 1918). The specific NPIs used in each city were identified using a variety of sources (e.g. newspapers, municipal records), and then classified into 19 categories. The timing of their implementation relative to the epidemic was measured using the cumulative excess mortality (CEPID) up until the date on which the intervention was announced. This information was then compared with 3 epidemic outcome variables: \textbf{(1)} the peak weekly death rate, \textbf{(2)} the normalized peak death rate (insensitive to intercity differences), and \textbf{(3)} the CEPID up until December 1918. Since they were more rigorously documented, these variables are viewed as better measures of disease incidence than the recorded number of infections.
+
+\columnbreak
+\subsection*{Data Analysis}
+
+The researchers hypothesized that early implementation NPIs are indeed associated with reduced disease transmission. Mann-Whitney $U$ Tests were carried out to compare the median grouped epidemic outcome variables (i.e. peak death rates, CEPID) between cities intervening early and those intervening late or not at all. Letting $\tilde\mu_E$ and $\tilde\mu_L$ be the median for early- and late-intervention cities respectively:
+\begin{alignat*}{1}
+    & H_0: \tilde\mu_E - \tilde\mu_L = 0 \\
+    & H_A: \tilde\mu_E - \tilde\mu_L > 0
+\end{alignat*}
+Furthermore, higher numbers of NPIs implemented before some CEPID cutoff (e.g. 20/100,000) would be associated with lower epidemic intensity outcomes. Letting $\rho$ be Spearman's rank correlation between \textbf{(1)} the number of NPIs implemented before some cutoff, and \textbf{(2)} some measure of epidemic severity:
+\begin{alignat*}{2}
+    & H_0: \rho = 0 \,\,\, && \textnormal{(no association)} \\
+    & H_A: \rho < 0 \,\,\, && \textnormal{(\textbf{negative }association)}
+\end{alignat*}
+Similarly, a higher CEPID at the time of implementation (meaning late intervention relative to disease spread) would be associated with more drastic epidemic outcomes. Letting $\rho$ be Spearman's rank correlation between \textbf{(1)} the CEPID at time of intervention, and \textbf{(2)} some measure of epidemic severity:
+\begin{alignat*}{2}
+    & H_0: \rho = 0 \,\,\, && \textnormal{(no association)} \\
+    & H_A: \rho > 0 \,\,\, && \textnormal{(\textbf{positive} association)}
+\end{alignat*}
+Spearman rank correlation tests were conducted at a significance level of $\alpha = 0.05$ in order to assess whether NPIs are indeed significantly associated with reduced disease transmission. Correlation tests were also carried out for a variety of supporting relationships, e.g. between the time the epidemic first hit a city, and that city's NPI implementation timing. 
+
+\newpage
+\subsection*{Results}
+
+Cities with early NPI implementation had peak weekly death rates approximately $50\pct$ lower than other cities ($p < 0.05$), but displayed no statistically significant CEPID differences. The number of NPIs implemented before a certain cutoff was found to have a significant negative association with peak death rates ($-0.68 \leq \rho \leq 0.51$, $0.002 < p < 0.04$). A negative association was also observed with the December CEPID, but that was significant only for a cutoff of 20/100,000 ($\rho = -0.52$, $p = 0.03$). Additionally, lower peak death rates seem to be positively associated with early closure of schools, theaters, and churches ($0.54 \leq \rho \leq 0.56$, $p = 0.02$), but no other NPIs displayed significant relationships with any of the epidemic intensity measures. Finally, cities whose epidemics began later tended to intervene faster ($\rho = 0.77$, $p = 0.0003$), potentially after noticing the flu's detrimental effects in other cities.
+
+\subsection*{Conclusions}
+
+While noting that \textit{``causality may be complicated''}, the article nevertheless concludes that \textit{``aggressive implementation of NPIs \textbf{resulted in} flatter epidemic curves and a trend toward better overall outcomes''} during the 1918 pandemic. Specifically, the claim is made that such interventions are \textit{``capable of significantly \textbf{reducing} the rate of disease transmission so long as they remain in effect''}, which then raises the issue of multiple epidemic waves after the relaxation of NPIs. Indeed, initially well-protected cities tend to have lower population immunity rates as a result of reduced disease exposure, and hence tend to experience second waves sooner and with greater intensity.
+
+\subsection*{Critique}
+
+The article seems to have applied nonparametric procedures appropriately. First, a Mann-Whitney $U$ Test is used to compare the location parameters of two (probably highly skewed) independent group distributions. Second, the Spearman rank correlation is used to test the strength of the association between an ordinal variable (some measure of NPI implementation timing) and a quantitative one (some measure of epidemic intensity) in a variety of presumably independent cities. The researchers also ensured monotonicity (an assumption of Spearman's rank correlation test) by limiting their investigation to the fall wave of the 1918 Spanish flu and considering peak death rates \textit{a priori} - subsequent waves were ignored.
+
+For this study, Spearman's $\rho$ is preferable to other more traditional methods of association (such as Pearson's correlation) thanks to its capability for dealing with ordinal data (i.e. timing of NPI implementation), as well as due to its flexibility and robustness. Spearman's $\rho$ measures the strength of \textit{any} monotonic relationship, rather than just a linear one. Linearity would be an inappropriate oversimplification for an epidemiological analysis, where most relationships are exponential. Spearman's $\rho$ is also more robust to the presence of outliers, since it deals with ranks instead of actual values, and does not rely on distributional assumptions (whereas Pearson's correlation requires bivariate normal data in order to be an exhaustive measure of association). Despite all this, an even better nonparametric measure of association would have been Kendall's rank correlation ($\tau$), which has the same advantages as Spearman's $\rho$ but is more robust, efficient, and interpretable, and tends to yield more reliable confidence intervals.
+
+A considerable criticism of the article is its emphasis on making causal conclusions (evident from misleading language such as \textit{``resulted in''} or \textit{``reduces''}). Causality is impossible to infer from a retrospective observational study, despite the article's attempts to do so by explaining away a variety of limitations or statistical artifacts. Moreover, the p-values of most significant associations are very close to the 0.05 cutoff, so the article should be more cautious about drawing such confident conclusions. The researchers seem to have a vested interest in advocating for the efficiency of NPIs, claiming that their results \textit{``underscore the need for prompt action by public health authorities''}, and even suggesting a CEPID cutoff guideline for NPI introduction. While this may be overall good advice (as shown by our experience with the current COVID-19 pandemic), it is excessive and insufficiently rigorous for a (presumably) objective academic paper. Potential bias seems even more likely given the authors' backgrounds as Public Health policymakers, and noticing that the article's publication date overlaps with the 2006-2007 H5N1 outbreak, which threatened to become a global pandemic.
+
+\end{multicols}
+
+\bibliography{references}
+
+\end{document}
